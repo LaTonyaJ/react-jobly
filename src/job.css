@@ -1,0 +1,16 @@
+.jobCard {
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: 3em;
+  text-align: left;
+  padding: 1em;
+}
+
+.card-title {
+  font-weight: 500;
+}
+
+.card-subtitle {
+  font-style: italic;
+  font-weight: 200;
+}

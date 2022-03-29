@@ -1,0 +1,13 @@
+.navbar {
+  height: auto;
+  list-style: none;
+  background-color: aquamarine;
+  height: 2em;
+  margin: 0;
+}
+
+.navbar li {
+  display: inline;
+  margin: 20px;
+  font-weight: 600;
+}
