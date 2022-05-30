@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import {Form, Label, Input, FormGroup, Button} from 'reactstrap';
-import JoblyApi from './api';
-import {useHistory} from 'react-router-dom';
-import useLocalStorage from './hooks/useLocalStorage';
+import { useHistory } from 'react-router-dom';
+
 
 
 function Register({login}){
     const history = useHistory();
-    const [token, setToken] = useLocalStorage('token');
-
 
     const INITIAL_STATE = {
         firstName: '',
@@ -29,18 +26,12 @@ function Register({login}){
         }))
     }
     const handleSubmit = async (e) =>{
-        try{
         e.preventDefault();
-        login({...formData});
-        const token = await JoblyApi.registerUser({...formData});
-        const userToken = token.toString();
-        JoblyApi.token = userToken;
-        setToken(userToken);
-        setformData(INITIAL_STATE);
-        history.push('/')
-        }
-        catch(err){
-            console.log(err);
+        const result = await login(formData);
+        if(result){
+            history.push("/companies");
+        }else{
+            console.log(result.error);
         }
     }
 

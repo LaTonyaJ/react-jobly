@@ -55,7 +55,7 @@ class JoblyApi {
 
   static async getJobs() {
     let res = await this.request(`jobs`);
-    return res.jobs;
+    return res.results;
   }
 
   static async registerUser(data) {
@@ -65,12 +65,27 @@ class JoblyApi {
 
   static async login(data){
     let res = await this.request(`auth/token`,{...data}, 'post');
-    return res.token;
+    return res;
   }
 
   static async get(username){
     let res = await this.request(`users/${username}`);
     return res.user;
+  }
+
+  static async update(username, data){
+    let res = await this.request(`users/${username}`, {...data}, 'patch');
+    return res.user;
+  }
+
+  static async applyToJob(username, jobId){
+    await this.request(`users/${username}/jobs/${jobId}`, {}, 'post');
+
+  }
+
+  static async getJob(id){
+    let res = await this.request(`jobs/${id}`);
+    return res.job;
   }
 
 }

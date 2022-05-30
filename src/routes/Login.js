@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import {
     Form,
     Input,
@@ -7,17 +8,14 @@ import {
     FormGroup,
     Button
 } from 'reactstrap';
-import JoblyApi from './api';
-import {useHistory} from 'react-router-dom';
-import useLocalStorage from './hooks/useLocalStorage';
 
 function Login({login}){
     const history = useHistory();
+
     const [formData, setformData] = useState({
         username: '',
         password: ''
     });
-    const [token, setToken] = useLocalStorage('token');
 
     const handleChange =(e) =>{
         const {name, value} = e.target;
@@ -27,18 +25,14 @@ function Login({login}){
         }))
     }
 
-    const handleSubmit =async(e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
-        try{
-            const token = JoblyApi.login({...formData});
-            const userToken = token.toString();
-            JoblyApi.token = userToken;
-            setToken(userToken);
-            login({...formData});
-            history.push('/');
-        }
-        catch(err){
-            
+        const result = await login(formData);
+        console.log(result)
+        if(result){
+            history.push('/companies')
+        }else{
+        console.error()
         }
     }
 

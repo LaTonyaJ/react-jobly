@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import {Navbar, NavLink, NavItem, Nav} from 'reactstrap';
-import JoblyApi from './api';
-import './Nav.css';
+import './css/Nav.css';
 import UserContext from './context/UserContext';
+import {Link} from 'react-router-dom';
 
-function NavBar(){
-    const user = useContext(UserContext);
-
+function NavBar({logout}){
+    const {user} = useContext(UserContext);
+    console.log(user)
     return(
         <Navbar>{
-            localStorage.getItem('token') ?
+            user ?
             <Nav className='navbar'>
                 <NavItem>
                     <NavLink href='/'>Jobly</NavLink>
@@ -24,7 +24,7 @@ function NavBar(){
                     <NavLink href='/profile'>Profile</NavLink>
                 </NavItem>
                 <NavItem> 
-                    <NavLink href='/signout'>Sign Out {user.username}</NavLink>
+                    <Link to='/' onClick={logout}>Sign Out {user.first_name}</Link>
                 </NavItem>
             </Nav>:
             <Nav className='navbar'>

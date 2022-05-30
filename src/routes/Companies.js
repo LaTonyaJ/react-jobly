@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import JoblyApi from '../api';
 import {
     Card, 
     CardImg, 
@@ -6,17 +7,27 @@ import {
     CardText, 
     CardTitle} 
 from 'reactstrap';
-import './companies.css';
+import '../css/companies.css';
 
 
-function Companies({companies}){
+function Companies(){
+    const [companies, setCompanies] = useState([]);
 
+    
+    useEffect(() => {
+        async function getCompanies(){
+        const comps = await JoblyApi.getCompanies();
+        setCompanies(comps);
+        }
+        getCompanies();
+    },[]);
+    
 
     return(
         <div>
             <h3>Companies</h3>
             {companies.map(c =>
-            (<a href={`companies/${c.handle}`}>
+            (<a href={`companies/:${c.handle}`}>
             <Card 
                 key={c.handle} 
                 className='compCard'

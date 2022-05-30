@@ -1,14 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Jobs from './Job';
+import Job from './Job';
 
 function Company({jobs}){
     const {name} = useParams();
-    let job = jobs.filter(j => j.companyHandle === name);
+    let j = jobs.filter(job => job.companyHandle === name);
 
     return(
         <div>
-            <Jobs jobs={job} />
+            <Job jobs={j}/>
         </div>
     );
 }
